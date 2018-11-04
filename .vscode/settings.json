@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        ".netlify": "json",
+        "*.es": "javascript",
+        "*.gs": "javascript",
+        "iostream": "cpp"
+    }
+}

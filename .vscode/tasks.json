@@ -1,0 +1,39 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build",
+      "type": "shell",
+      "command": "g++",
+      "args": [
+        "-g",
+        "-I/usr/local/Cellar/glib/2.56.1/include/glib-2.0",
+        "-I/usr/local/Cellar/glib/2.56.1/lib/glib-2.0/include",
+        "-I/usr/local/opt/gettext/include",
+        "-I/usr/local/Cellar/pcre/8.42/include",
+        "-L/usr/local/Cellar/glib/2.56.1/lib",
+        "-L/usr/local/opt/gettext/lib",
+        "-lglib-2.0",
+        "-lintl",
+        "-Wl,-framework",
+        "-Wl,CoreFoundation",
+        "-lz",
+        "src/main.cpp"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "promptOnClose": false,
+      "presentation": {
+        "echo": true,
+        "reveal": "never",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false
+      }
+    }
+  ]
+}
