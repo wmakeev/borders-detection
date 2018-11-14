@@ -4,23 +4,16 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "build",
       "type": "shell",
+      "label": "build",
       "command": "g++",
       "args": [
+        "-std=c++11",
         "-g",
-        "-I/usr/local/Cellar/glib/2.56.1/include/glib-2.0",
-        "-I/usr/local/Cellar/glib/2.56.1/lib/glib-2.0/include",
-        "-I/usr/local/opt/gettext/include",
-        "-I/usr/local/Cellar/pcre/8.42/include",
-        "-L/usr/local/Cellar/glib/2.56.1/lib",
-        "-L/usr/local/opt/gettext/lib",
-        "-lglib-2.0",
-        "-lintl",
-        "-Wl,-framework",
-        "-Wl,CoreFoundation",
-        "-lz",
-        "src/main.cpp"
+        "src/main.cpp",
+        "src/detect_borders.cpp",
+        "src/image.cpp",
+        "src/read_pixels.cpp"
       ],
       "group": {
         "kind": "build",
@@ -34,6 +27,11 @@
         "panel": "shared",
         "showReuseMessage": false
       }
+    },
+    {
+      "type": "npm",
+      "script": "build:dev",
+      "problemMatcher": []
     }
   ]
 }

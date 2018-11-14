@@ -5,17 +5,35 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "(lldb) main",
+      "name": "main.cpp",
       "type": "cppdbg",
       "request": "launch",
       "program": "${workspaceFolder}/a.out",
-      "args": [],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",
       "environment": [],
       // "externalConsole": true,
       "MIMode": "lldb",
-      "preLaunchTask": "build"
-    }
+      "preLaunchTask": "build",
+      "args": []
+    },
+    {
+      "name": "debug.js",
+      "type": "lldb",
+      "request": "launch",
+      "program": "/Users/mvv/.nvm/versions/node/v9.10.1/bin/node",
+      "preLaunchTask": "npm: build:dev",
+      "args": [
+        "${workspaceFolder}/__tests__/debug.js"
+      ],
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "${file}",
+      "program": "${file}",
+      "runtimeArgs": [],
+      "internalConsoleOptions": "openOnSessionStart"
+    },
   ]
 }
