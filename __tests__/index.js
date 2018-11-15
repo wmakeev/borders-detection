@@ -45,9 +45,9 @@ let borders03 = detectBordersSync(IMAGE_03_URL, { minGap: 10 })
 
 // console.log(JSON.stringify(borders03))
 
-assert.equal(borders03.length, 12)
-assert.equal(borders03[6].border.x, 560)
-assert.equal(borders03[6].pixels[3][1], 53)
+assert.equal(borders03.length, 14)
+assert.equal(borders03[6].border.x, 478)
+assert.equal(borders03[6].pixels[3][1], 342)
 
 // #endregion
 

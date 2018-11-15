@@ -22,7 +22,7 @@ std::list<Pixel> *read_pixels(const char *filename)
   BITMAPINFOHEADER *info_header = new BITMAPINFOHEADER;
 
   fread(&(info_header->biSize), 1, sizeof(info_header->biSize), f);
-  if (info_header->biSize != 40) // 108 ImageMagik
+  if (info_header->biSize < 40)
     throw std::runtime_error("Unsupported BMP file format");
 
   fread(&(info_header->biWidth), 1, sizeof(info_header->biWidth), f);
@@ -39,6 +39,9 @@ std::list<Pixel> *read_pixels(const char *filename)
   fread(&(info_header->biYPelsPerMeter), 1, sizeof(info_header->biYPelsPerMeter), f);
   fread(&(info_header->biClrUsed), 1, sizeof(info_header->biClrUsed), f);
   fread(&(info_header->biClrImportant), 1, sizeof(info_header->biClrImportant), f);
+
+  if (info_header->biSize > 40) // if BITMAPV4HEADER (108) or other
+    fseek(f, info_header->biSize - 40, SEEK_CUR);
 
   // read color table
   const int color_table_length = 2;

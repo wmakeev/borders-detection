@@ -93,12 +93,47 @@ struct BITMAPINFOHEADER
   DWORD biClrImportant;
 };
 
+// TODO Type length consistent with BITMAPINFOHEADER?
+struct BITMAPV4HEADER
+{                        /* http://www.fileformat.info/format/bmp/egff.htm */
+  WORD Size;             /* Size of this header in bytes */
+  LONG Width;            /* Image width in pixels */
+  LONG Height;           /* Image height in pixels */
+  WORD Planes;           /* Number of color planes */
+  WORD BitsPerPixel;     /* Number of bits per pixel */
+  DWORD Compression;     /* Compression methods used */
+  DWORD SizeOfBitmap;    /* Size of bitmap in bytes */
+  LONG HorzResolution;   /* Horizontal resolution in pixels per meter */
+  LONG VertResolution;   /* Vertical resolution in pixels per meter */
+  DWORD ColorsUsed;      /* Number of colors in the image */
+  DWORD ColorsImportant; /* Minimum number of important colors */
+  /* Fields added for Windows 4.x follow this line */
+
+  DWORD RedMask;    /* Mask identifying bits of red component */
+  DWORD GreenMask;  /* Mask identifying bits of green component */
+  DWORD BlueMask;   /* Mask identifying bits of blue component */
+  DWORD AlphaMask;  /* Mask identifying bits of alpha component */
+  DWORD CSType;     /* Color space type */
+  LONG RedX;        /* X coordinate of red endpoint */
+  LONG RedY;        /* Y coordinate of red endpoint */
+  LONG RedZ;        /* Z coordinate of red endpoint */
+  LONG GreenX;      /* X coordinate of green endpoint */
+  LONG GreenY;      /* Y coordinate of green endpoint */
+  LONG GreenZ;      /* Z coordinate of green endpoint */
+  LONG BlueX;       /* X coordinate of blue endpoint */
+  LONG BlueY;       /* Y coordinate of blue endpoint */
+  LONG BlueZ;       /* Z coordinate of blue endpoint */
+  DWORD GammaRed;   /* Gamma red coordinate scale value */
+  DWORD GammaGreen; /* Gamma green coordinate scale value */
+  DWORD GammaBlue;  /* Gamma blue coordinate scale value */
+};
+
 struct RGBQUAD
 { /* rgbq */
-  BYTE rgbBlue;
-  BYTE rgbGreen;
-  BYTE rgbRed;
-  BYTE rgbReserved;
+BYTE rgbBlue;
+BYTE rgbGreen;
+BYTE rgbRed;
+BYTE rgbReserved;
 };
 
 struct BITMAPINFO

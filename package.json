@@ -1,6 +1,6 @@
 {
   "name": "@wmakeev/borders-detection",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Detect objects borders in bitmap image",
   "main": "index.js",
   "gypfile": true,
