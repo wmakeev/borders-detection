@@ -3,7 +3,7 @@
 
 #include "read_pixels.hpp"
 
-std::list<Pixel> *read_pixels(const char *filename)
+std::list<Pixel> *read_pixels(const char *filename, LONG &width, LONG &height)
 {
   FILE *f = fopen(filename, "rb");
 
@@ -28,6 +28,9 @@ std::list<Pixel> *read_pixels(const char *filename)
   fread(&(info_header->biWidth), 1, sizeof(info_header->biWidth), f);
   fread(&(info_header->biHeight), 1, sizeof(info_header->biHeight), f);
   fread(&(info_header->biPlanes), 1, sizeof(info_header->biPlanes), f);
+
+  width = info_header->biWidth;
+  height = info_header->biHeight;
 
   fread(&(info_header->biBitCount), 1, sizeof(info_header->biBitCount), f);
   if (info_header->biBitCount != 1)

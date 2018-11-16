@@ -43,7 +43,7 @@ void print_pixels_groups(std::list<PixelsGroup> &pixels_groups)
 // ошибка - unction is used but not defined in this translation unit
 template <typename Func>
 std::list<std::list<Pixel>> *split_by(std::list<Pixel> &pixels, Func selector,
-                                      const unsigned int min_gap)
+                                      const unsigned int max_gap_px)
 {
   std::list<std::list<Pixel>> *pixels_groups = new std::list<std::list<Pixel>>;
   std::list<Pixel> *pixels_group;
@@ -69,7 +69,7 @@ std::list<std::list<Pixel>> *split_by(std::list<Pixel> &pixels, Func selector,
     // auto res1 = selector(*it);
     // auto res2 = selector(*next_it);
 
-    if (selector(*next_it) - selector(*it) > min_gap)
+    if (selector(*next_it) - selector(*it) > max_gap_px)
     {
       it = next_it;
 
@@ -93,26 +93,27 @@ std::list<std::list<Pixel>> *split_by(std::list<Pixel> &pixels, Func selector,
   return pixels_groups;
 }
 
-std::list<PixelsGroup> *detect_borders(const char *filename, const unsigned int min_gap)
+std::list<PixelsGroup> *detect_borders(const char *filename, const double max_gap_perc,
+                                       LONG &width, LONG &height)
 {
-  std::list<Pixel> *pixels_list = read_pixels(filename);
+  std::list<Pixel> *pixels_list = read_pixels(filename, width, height);
   // print_pixels(pixels_list); // DEBUG
 
   std::list<std::list<Pixel>> groups;
   std::list<std::list<Pixel>> *x_groups, *y_groups;
   std::list<std::list<Pixel>>::iterator x_group_it, y_group_it, group_it;
 
-  x_groups = split_by(*pixels_list, [](const Pixel &px) { return px.x; }, min_gap);
+  unsigned int max_gap_px = (unsigned int)(max_gap_perc * (width > height ? width : height));
 
+  x_groups = split_by(*pixels_list, [](const Pixel &px) { return px.x; }, max_gap_px);
   // print_pixels_groups(x_groups); // DEBUG
 
   for (x_group_it = x_groups->begin(); x_group_it != x_groups->end(); x_group_it++)
   {
-    y_groups = split_by(*x_group_it, [](const Pixel &px) { return px.y; }, min_gap);
+    y_groups = split_by(*x_group_it, [](const Pixel &px) { return px.y; }, max_gap_px);
     for (y_group_it = y_groups->begin(); y_group_it != y_groups->end(); y_group_it++)
       groups.push_back(*y_group_it);
   }
-
   // print_pixels_groups(groups); // DEBUG
 
   std::list<PixelsGroup> *pixels_groups = new std::list<PixelsGroup>;
@@ -120,7 +121,6 @@ std::list<PixelsGroup> *detect_borders(const char *filename, const unsigned int 
   {
     pixels_groups->push_back(PixelsGroup(*group_it));
   }
-
   // print_pixels_groups(*pixels_groups); // DEBUG
 
   return pixels_groups;
