@@ -1,10 +1,17 @@
 {
   "name": "@wmakeev/borders-detection",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Detect objects borders in bitmap image",
   "main": "index.js",
   "types": "index.d.ts",
   "gypfile": true,
+  "keywords": [
+    "processing",
+    "bitmap",
+    "image",
+    "borders",
+    "detection"
+  ],
   "scripts": {
     "test": "node ./__tests__",
     "postinstall": "npm run test",
