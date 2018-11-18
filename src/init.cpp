@@ -3,14 +3,13 @@
 #include <iostream>
 #include <string>
 
-#include "detect_borders.hpp"
+#include "pixels_groups.hpp"
 
-Napi::Object get_napi_borders_array(Napi::Env &env, std::list<PixelsGroup> *pixels_groups,
+Napi::Object get_napi_groups_array(Napi::Env &env, std::list<PixelsGroup> *pixels_groups,
                                     LONG &width, LONG &height)
 {
   // groups array
-  const int borders_count = pixels_groups->size();
-  Napi::Array borders_array = Napi::Array::New(env, borders_count);
+  Napi::Array groups_array = Napi::Array::New(env, pixels_groups->size());
   Napi::Object result_object = Napi::Object::New(env);
 
   // image info
@@ -22,41 +21,41 @@ Napi::Object get_napi_borders_array(Napi::Env &env, std::list<PixelsGroup> *pixe
       Napi::String::New(env, "imgHeight"),
       Napi::Number::New(env, height));
 
-  int border_index = 0;
+  int bound_index = 0;
   for (auto g_it = pixels_groups->begin(); g_it != pixels_groups->end(); g_it++)
   {
     // Napi::Object group_object = Napi::Object::New(env);
 
-    // .border{}
-    Napi::Object border_object = Napi::Object::New(env);
+    // .bound{}
+    Napi::Object group_object = Napi::Object::New(env);
 
-    border_object.Set(
-        Napi::String::New(env, "x"),
-        Napi::Number::New(env, (double)(g_it->border.x) / width));
+    group_object.Set(
+        Napi::String::New(env, "minX"),
+        Napi::Number::New(env, (double)(g_it->bound.min_x) / width));
 
-    border_object.Set(
-        Napi::String::New(env, "y"),
-        Napi::Number::New(env, (double)(g_it->border.y) / height));
+    group_object.Set(
+        Napi::String::New(env, "minY"),
+        Napi::Number::New(env, (double)(g_it->bound.min_y) / height));
 
-    border_object.Set(
-        Napi::String::New(env, "width"),
-        Napi::Number::New(env, (double)(g_it->border.width) / width));
+    group_object.Set(
+        Napi::String::New(env, "maxX"),
+        Napi::Number::New(env, (double)(g_it->bound.max_x) / width));
 
-    border_object.Set(
-        Napi::String::New(env, "height"),
-        Napi::Number::New(env, (double)(g_it->border.height) / height));
+    group_object.Set(
+        Napi::String::New(env, "maxY"),
+        Napi::Number::New(env, (double)(g_it->bound.max_y) / height));
 
-    border_object.Set(
+    group_object.Set(
         Napi::String::New(env, "pixelsCount"),
         Napi::Number::New(env, g_it->pixels.size()));
 
-    // add border object
-    borders_array.Set(border_index, border_object);
+    // add bound object
+    groups_array.Set(bound_index, group_object);
 
-    border_index++;
+    bound_index++;
   }
 
-  result_object.Set(Napi::String::New(env, "borders"), borders_array);
+  result_object.Set(Napi::String::New(env, "groups"), groups_array);
 
   return result_object;
 }
@@ -74,7 +73,7 @@ public:
 protected:
   void Execute() override
   {
-    pixels_groups = detect_borders(filename.c_str(), max_gap_perc, width, height);
+    pixels_groups = get_pixels_groups(filename.c_str(), max_gap_perc, width, height);
   }
 
   void OnOK() override
@@ -83,7 +82,7 @@ protected:
 
     Callback().MakeCallback(
         Receiver().Value(),
-        {env.Null(), get_napi_borders_array(env, pixels_groups, width, height)});
+        {env.Null(), get_napi_groups_array(env, pixels_groups, width, height)});
   }
 
   void OnError(const Napi::Error &e) override
@@ -101,7 +100,7 @@ private:
   std::list<PixelsGroup> *pixels_groups;
 };
 
-Napi::Value detect_borders_async(const Napi::CallbackInfo &info)
+Napi::Value detect_groups_async(const Napi::CallbackInfo &info)
 {
   Napi::Env env = info.Env();
   Napi::Object options_object;
@@ -159,8 +158,8 @@ Napi::Value detect_borders_async(const Napi::CallbackInfo &info)
 Napi::Object Init(Napi::Env env, Napi::Object exports)
 {
   exports.Set(
-      Napi::String::New(env, "detectBorders"),
-      Napi::Function::New(env, detect_borders_async));
+      Napi::String::New(env, "pixelsGroups"),
+      Napi::Function::New(env, detect_groups_async));
 
   return exports;
 };

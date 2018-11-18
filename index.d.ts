@@ -1,34 +1,34 @@
 /**
- * Object border info
+ * Object bound info
  */
-declare interface Border {
+declare interface PixelsGroup {
   /**
-   * Top left x coordinate of border (percents of image width)
+   * Top left x coordinate of bound (percents of image width)
    */
-  x: number
+  minX: number
 
   /**
-   * Top left y coordinate of border (percents of image height)
+   * Top left y coordinate of bound (percents of image height)
    */
-  y: number
+  minY: number
 
   /**
-   * Border width (percents of image width)
+   * Bottom right x coordinate of bound (percents of image width)
    */
-  width: number
+  max_x: number
 
   /**
-   * Border width (percents of image height)
+   * Bottom right y coordinate of bound (percents of image height)
    */
-  height: number
+  maxY: number
 
   /**
-   * Pixels count inside border
+   * Pixels count inside bound
    */
   pixelsCount: number
 }
 
-declare interface BorderDetectionResult {
+declare interface PixelsGroupsDetectionResult {
   /**
    * Input image width in pixels
    */
@@ -40,13 +40,20 @@ declare interface BorderDetectionResult {
   imgHeight: number
 
   /**
-   * Detected object borders
+   * Extract object pixels groups
    */
-  borders: Array<Border>
+  groups: Array<PixelsGroup>
+}
+
+declare interface PixelsGroupsOptions {
+  /**
+   * Maximum gap between tow nearby pixels in group (percents of greatest image side)
+   */
+  maxGap: number
 }
 
 declare var bordersDetection: {
-  detectBorders (file: string, options: { maxGap: number }): Promise<BorderDetectionResult>
+  pixelsGroups (file: string, options: PixelsGroupsOptions): Promise<PixelsGroupsDetectionResult>
 }
 
 export = bordersDetection

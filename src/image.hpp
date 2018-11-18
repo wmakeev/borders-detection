@@ -9,20 +9,20 @@ struct Pixel
   Pixel(unsigned int _x, unsigned int _y) : x(_x), y(_y){};
 };
 
-struct Border
+struct Bound
 {
-  unsigned int x, y, width, height;
+  unsigned int min_x, min_y, max_x, max_y;
 };
 
-Border get_object_border(std::list<Pixel> &pixels);
+Bound get_object_bound(std::list<Pixel> &pixels);
 
 struct PixelsGroup
 {
   std::list<Pixel> pixels;
-  Border border;
+  Bound bound;
   PixelsGroup(std::list<Pixel> _pixels) : pixels(_pixels)
   {
-    border = get_object_border(pixels);
+    bound = get_object_bound(pixels);
   }
 };
 

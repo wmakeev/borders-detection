@@ -1,4 +1,4 @@
-#include "detect_borders.hpp"
+#include "pixels_groups.hpp"
 
 void print_pixels(std::list<Pixel> &pixels)
 {
@@ -22,14 +22,14 @@ void print_pixels_groups(std::list<PixelsGroup> &pixels_groups)
   for (auto it = pixels_groups.begin(), end = pixels_groups.end(); it != end; it++)
   {
     // auto item = *it; // DEBUG
-    // auto border = *(it->border); // DEBUG
+    // auto bound = *(it->bound); // DEBUG
     // auto pixels = *(it->pixels); // DEBUG
     // auto size = it->pixels->size(); // DEBUG
     // auto bg = it->pixels->begin();
     // auto px = *(std::next(bg, 3));
 
-    std::cout << "Group " << i << " - x:" << (it->border.x) << " y:" << (it->border.y);
-    std::cout << " width:" << (it->border.width) << " height:" << (it->border.height);
+    std::cout << "Group " << i << " - x:" << (it->bound.min_x) << " y:" << (it->bound.min_y);
+    std::cout << " width:" << (it->bound.max_x) << " height:" << (it->bound.max_y);
     std::cout << " size:" << (it->pixels.size());
     std::cout << std::endl;
 
@@ -93,8 +93,8 @@ std::list<std::list<Pixel>> *split_by(std::list<Pixel> &pixels, Func selector,
   return pixels_groups;
 }
 
-std::list<PixelsGroup> *detect_borders(const char *filename, const double max_gap_perc,
-                                       LONG &width, LONG &height)
+std::list<PixelsGroup> *get_pixels_groups(const char *filename, const double max_gap_perc,
+                                     LONG &width, LONG &height)
 {
   std::list<Pixel> *pixels_list = read_pixels(filename, width, height);
   // print_pixels(pixels_list); // DEBUG

@@ -2,7 +2,7 @@
 #include <string>
 #include <list>
 
-#include "detect_borders.hpp"
+#include "pixels_groups.hpp"
 
 #define MAX_GAP 0.1
 
@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
 
   LONG width, height;
 
-  std::list<PixelsGroup> *pixels_groups = detect_borders(filename, MAX_GAP, width, height);
+  std::list<PixelsGroup> *pixels_groups = get_pixels_groups(filename, MAX_GAP, width, height);
 
   print_pixels_groups(*pixels_groups);
 

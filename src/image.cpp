@@ -1,6 +1,6 @@
 #include "image.hpp"
 
-Border get_object_border(std::list<Pixel> &pixels)
+Bound get_object_bound(std::list<Pixel> &pixels)
 {
   unsigned int min_x, min_y, max_x, max_y;
 
@@ -23,7 +23,7 @@ Border get_object_border(std::list<Pixel> &pixels)
       max_y = it->y;
   }
 
-  Border border{min_x, min_y, max_x - min_x + 1, max_y - min_y + 1};
+  Bound bound{min_x, min_y, max_x, max_y};
 
-  return border;
+  return bound;
 }
