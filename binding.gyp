@@ -4,7 +4,7 @@
       "target_name": "borders-detection",
       "sources": [
         "src/init.cpp",
-        "src/detect_borders.cpp",
+        "src/pixels_groups.cpp",
         "src/image.cpp",
         "src/read_pixels.cpp"
       ],
