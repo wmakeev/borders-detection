@@ -15,7 +15,7 @@ declare interface PixelsGroup {
   /**
    * Bottom right x coordinate of bound (percents of image width)
    */
-  max_x: number
+  maxX: number
 
   /**
    * Bottom right y coordinate of bound (percents of image height)
