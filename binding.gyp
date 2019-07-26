@@ -9,18 +9,12 @@
         "src/read_pixels.cpp"
       ],
       "include_dirs" : [
-        "<!@(node -p \"require('node-addon-api').include\")"
+        "<!@(node -p \"require('node-addon-api').include\")",
+        "/usr/include",
+        "/usr/local/include"
       ],
       "conditions": [
         ['OS=="mac"', {
-          "include_dirs" : [
-            "/usr/include",
-            "/usr/local/include"
-          ],
-          "libraries": [
-          ],
-          'cflags': [
-          ],
           'xcode_settings': {
             'GCC_ENABLE_CPP_EXCEPTIONS': 'YES'
           }
