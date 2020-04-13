@@ -66,7 +66,7 @@ const IMAGE_04 = path.join(__dirname, './img/04.bmp')
 
 pixelsGroups(IMAGE_04, { maxGap: 0.01 })
   .then(result => {
-    assert.equal(result.groups.length, 13)
+    assert.equal(result.groups.length, 6)
     console.log('Test 04 - OK')
   })
   .catch(err => {
