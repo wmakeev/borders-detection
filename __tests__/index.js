@@ -1,7 +1,7 @@
 'use strict'
 
 const path = require('path')
-const assert = require('assert')
+const { strict: assert } = require('assert')
 const { pixelsGroups } = require('..')
 
 // #region IMAGE 01
@@ -24,7 +24,9 @@ pixelsGroups(IMAGE_01, { maxGap: 0.1 })
     assert.deepEqual(result, RESULT_01)
     console.log('Test 01 - OK')
   })
-  .catch(err => { throw err })
+  .catch(err => {
+    throw err
+  })
 // #endregion
 
 // #region IMAGE 02
@@ -35,13 +37,13 @@ pixelsGroups(IMAGE_02, { maxGap: 0.5 })
     assert.deepEqual(result, {
       imgWidth: 10,
       imgHeight: 10,
-      groups: [
-        { minX: 0, minY: 0, maxX: 0.9, maxY: 0.9, pixelsCount: 56 }
-      ]
+      groups: [{ minX: 0, minY: 0, maxX: 0.9, maxY: 0.9, pixelsCount: 56 }]
     })
     console.log('Test 02 - OK')
   })
-  .catch(err => { throw err })
+  .catch(err => {
+    throw err
+  })
 // #endregion
 
 // #region IMAGE 03
@@ -54,5 +56,20 @@ pixelsGroups(IMAGE_03, { maxGap: 0.01 })
     assert.equal(result.groups[6].pixelsCount, 8681)
     console.log('Test 03 - OK')
   })
-  .catch(err => { throw err })
+  .catch(err => {
+    throw err
+  })
+// #endregion
+
+// #region IMAGE 04
+const IMAGE_04 = path.join(__dirname, './img/04.bmp')
+
+pixelsGroups(IMAGE_04, { maxGap: 0.01 })
+  .then(result => {
+    assert.equal(result.groups.length, 13)
+    console.log('Test 04 - OK')
+  })
+  .catch(err => {
+    throw err
+  })
 // #endregion
