@@ -1,6 +1,6 @@
 {
   "name": "@wmakeev/borders-detection",
-  "version": "3.0.3",
+  "version": "3.0.2",
   "description": "Detect objects borders in bitmap image",
   "main": "index.js",
   "types": "index.d.ts",
@@ -25,7 +25,7 @@
   },
   "author": "Vitaliy V. Makeev",
   "dependencies": {
-    "bindings": "1.3.0",
+    "bindings": "^1.5.0",
     "node-addon-api": "1.5.0"
   },
   "devDependencies": {
