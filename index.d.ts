@@ -1,7 +1,7 @@
 /**
  * Object bound info
  */
-declare interface PixelsGroup {
+export interface PixelsGroup {
   /**
    * Top left x coordinate of bound (percents of image width)
    */
@@ -28,7 +28,7 @@ declare interface PixelsGroup {
   pixelsCount: number
 }
 
-declare interface PixelsGroupsDetectionResult {
+export interface PixelsGroupsDetectionResult {
   /**
    * Input image width in pixels
    */
@@ -45,15 +45,11 @@ declare interface PixelsGroupsDetectionResult {
   groups: Array<PixelsGroup>
 }
 
-declare interface PixelsGroupsOptions {
+export interface PixelsGroupsOptions {
   /**
    * Maximum gap between tow nearby pixels in group (percents of greatest image side)
    */
   maxGap: number
 }
 
-declare var bordersDetection: {
-  pixelsGroups (file: string, options: PixelsGroupsOptions): Promise<PixelsGroupsDetectionResult>
-}
-
-export = bordersDetection
+export function pixelsGroups (file: string, options: PixelsGroupsOptions): Promise<PixelsGroupsDetectionResult>
